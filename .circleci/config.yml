@@ -1,21 +1,45 @@
-# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
-
-# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
-# See: https://circleci.com/docs/2.0/orb-intro/
-orbs:
-  node: circleci/node@4.7
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
-workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
-    jobs:
-      - node/test:
-          # This is the node version to use for the `cimg/node` tag
-          # Relevant tags can be found on the CircleCI Developer Hub
-          # https://circleci.com/developer/images/image/cimg/node
-          version: '16.10'
-          # If you are using yarn, change the line below from "npm" to "yarn"
-          pkg-manager: npm
+jobs:
+  build-job:
+    docker:
+      - image: circleci/node:7.10
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: yarn test
+#   deploy-job:
+#     docker:
+#       - image: circleci/node:7.10
+#     steps:
+#       - run:
+#           name: Run setup script
+#           command: bash .circleci/setup-heroku.sh
+#       - add_ssh_keys:
+#           fingerprints:
+#             - "5a:17:77:cd:28:f4:8a:ca:7d:b0:bd:cf:ec:a1:20:d2"
+#       - run:
+#           name: Deploy Master to Heroku
+#           command: |
+#             git push --force git@heroku.com:$HEROKU_APP_NAME.git HEAD:refs/heads/master
+#             heroku run node index.js
+#             heroku restart
+# workflows:
+#   version: 2
+#   build-deploy:
+#     jobs:
+#       - build-job
+#       - deploy-job:
+#           requires:
+#             - build-job
+#           filters:
+#             branches:
+#               only: master
+            
