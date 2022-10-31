@@ -1,20 +1,20 @@
 version: 2.1
 jobs:
-  # build-job:
-  #   docker:
-  #     - image: circleci/node:8.0
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         keys:
-  #         - v1-dependencies-{{ checksum "package.json" }}
-  #         - v1-dependencies-
-  #     - run: yarn install
-  #     - save_cache:
-  #         paths:
-  #           - node_modules
-  #         key: v1-dependencies-{{ checksum "package.json" }}
-      # - run: yarn test
+  build-job:
+    docker:
+      - image: circleci/node:8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: yarn test
   deploy-job:
     docker:
       - image: circleci/node:8.0
