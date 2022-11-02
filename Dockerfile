@@ -3,4 +3,4 @@ WORKDIR /app
 ADD package*.json ./
 RUN npm install
 ADD src/app.js ./
-CMD [ "node", "app.js"]
+# CMD [ "node", "app.js"]
