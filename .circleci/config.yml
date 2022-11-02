@@ -12,3 +12,9 @@ jobs:
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a ${HEROKU_APP_NAME} docker-express-app
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a ${HEROKU_APP_NAME} docker-express-app
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - deploy-dev
