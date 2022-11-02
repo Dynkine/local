@@ -1,24 +1,14 @@
+
 version: 2  # Version of CircleCI
 jobs:
-  build:
-    docker:
-      - image: node:18.12.0-alpine3.16
+  deploy-dev:
+    machine: true
     steps:
+      - checkout
       - run:
-          name: Install Docker client
+          name: Build and push Docker image to Heroku
           command: |
-            apk update && apk add curl
-            set -x
-            VER="17.03.0-ce"
-            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
-            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-            mv /tmp/docker/* /usr/bin
-      - run:
-          name: Build Docker image
-          command: docker build -t dynkine/docker-express-app .
-
-      - run:
-          name: Push to Docker Hub
-          command: |
-            docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-            docker push dynkine/docker-express-app
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a ${HEROKU_APP_NAME} docker-express-app
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a ${HEROKU_APP_NAME} docker-express-app
