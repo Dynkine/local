@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "main": "src/app.js",
   "author": "Oleksandr Kozlenko",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "start": "node src/app.js"
   },
