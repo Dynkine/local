@@ -33,4 +33,4 @@
         
 - App deploy
     
-      1. Deploy your app by pushing your code to the repository branch specified in CircleCi
+    Deploy your app by pushing your code to the repository branch specified in CircleCi
