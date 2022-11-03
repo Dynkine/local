@@ -29,7 +29,7 @@
         1. To start your work wit CircleCI go to the **[Sign Up](https://circleci.com/signup)**
          page. Sign up with your GitHub, Bitbucket or GitLab account
         2. click **Settings** and **Projects** and find the required Github repository
-        3. In the “**project settings**” int the **Environment variables** section ****add Heroku app name (HEROKU_APP_NAME) and Heroku api key (HEROKU_API_KEY) variables.
+        3. In the “**project settings**” int the **Environment variables** section add Heroku app name (HEROKU_APP_NAME) and Heroku api key (HEROKU_API_KEY) variables.
         
 - App deploy
     
