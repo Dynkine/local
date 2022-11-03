@@ -3,9 +3,9 @@
 - Prerequisites
     - Heroku setup
         
-          1.  Create your Heroku account at [sign up page](https://signup.heroku.com/).
+          1.  Create your Heroku account at **[sign up page](https://signup.heroku.com/)**
         
-          2. Install Heroku cli  from [web site](https://devcenter.heroku.com/articles/heroku-cli)
+          2. Install Heroku cli from **[web site](https://devcenter.heroku.com/articles/heroku-cli)**
         
         - 3. Configure Heroku for cli
             
